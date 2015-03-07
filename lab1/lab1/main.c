@@ -1,11 +1,9 @@
 /* lab1 - an application for the Pololu Orangutan SVP
  *
- * This application uses the Pololu AVR C/C++ Library.  For help, see:
- * -User's guide: http://www.pololu.com/docs/0J20
- * -Command reference: http://www.pololu.com/docs/0J18
+ * See Report Document for details
  *
  * Created: 2/7/2015 10:39:14 AM
- *  Author: A2CNMZZ
+ *  Author: Kyle English
  */
 
 #include <pololu/orangutan.h>
