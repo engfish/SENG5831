@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Atmel Studio Solution File, Format Version 11.00
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "finalProject", "finalProject\finalProject.cproj", "{0149DFA8-48B4-43E3-941B-5110DA12D04C}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "motor_lock", "motor_assignment\motor_lock.cproj", "{51F19ED0-C395-443A-BB5C-4FC63CCF2618}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|AVR = Release|AVR
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0149DFA8-48B4-43E3-941B-5110DA12D04C}.Debug|AVR.ActiveCfg = Debug|AVR
-		{0149DFA8-48B4-43E3-941B-5110DA12D04C}.Debug|AVR.Build.0 = Debug|AVR
-		{0149DFA8-48B4-43E3-941B-5110DA12D04C}.Release|AVR.ActiveCfg = Release|AVR
-		{0149DFA8-48B4-43E3-941B-5110DA12D04C}.Release|AVR.Build.0 = Release|AVR
+		{51F19ED0-C395-443A-BB5C-4FC63CCF2618}.Debug|AVR.ActiveCfg = Debug|AVR
+		{51F19ED0-C395-443A-BB5C-4FC63CCF2618}.Debug|AVR.Build.0 = Debug|AVR
+		{51F19ED0-C395-443A-BB5C-4FC63CCF2618}.Release|AVR.ActiveCfg = Release|AVR
+		{51F19ED0-C395-443A-BB5C-4FC63CCF2618}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
