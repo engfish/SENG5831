@@ -8,6 +8,7 @@
 
 #include <pololu/orangutan.h>
 #include <stdbool.h>
+#include "serial.h"
 
 volatile int encode_lock = 2730;
 static int maxSpeed = 96;
@@ -110,10 +111,11 @@ void unlockDoor()
 int main()
 {
 	lcd_init_printf();
-	clear();
+	uart_init();
+    clear();
 	
 	// Initialize the encoders and specify the four input pins.
-	encoders_init(IO_D2, IO_D3, IO_D2, IO_D3);
+	encoders_init(IO_D0, IO_D1, IO_D0, IO_D1);
 	
 	while(1)
 	{
@@ -126,7 +128,7 @@ int main()
 		lcd_goto_xy(0,1);
 		printf("Speed:%d", speed);
 		
-		unsigned char button = get_single_debounced_button_press(TOP_BUTTON | BOTTOM_BUTTON | MIDDLE_BUTTON);
+		unsigned char button = get_single_debounced_button_press(TOP_BUTTON | BOTTOM_BUTTON);
 		
 		if (button == TOP_BUTTON)
 		{
@@ -137,40 +139,54 @@ int main()
 		{
 			unlockDoor();
 		}
-		
-		else if (button == MIDDLE_BUTTON)
-		{
-			//reverse direction
-			/*int newSpeed = speed * -1;
-			bool positiveSpeed = speed > 0;
-			
-			while(speed != newSpeed)
-			{
-				if(positiveSpeed)
-				{
-					speed--;
-				}
-				
-				else
-				{
-					speed++;
-				}
-				
-				lcd_goto_xy(0,0);
-				printf("Encode:");
-				print_long(encoders_get_counts_m1());
-				
-				lcd_goto_xy(0,1);
-				printf("Speed:%d", speed);
-				
-				set_motors(speed, speed);
-				
-				delay_ms(2);
-			}
-			
-			clear();*/
-		}
+
+		// USB_COMM is always in SERIAL_CHECK mode, so we need to call this
+		// function often to make sure serial receptions and transmissions
+		// occur.
+		serial_check();
+
+		// Deal with any new bytes received.
+		serial_check_for_new_bytes_received();
 		
 		//set_motors(speed, speed);
+	}
+}
+
+
+void uart_init() {
+	
+	//****************************************************************************
+	// Enable Serial Ports
+	//**********************************************************************************
+	// Set the Baud Rate to match the default bluesmirf baud rate 115200.
+	serial_set_baud_rate(UART1, 9600);
+	
+	// Set the mode of UART1 to serial Check
+	serial_set_mode(UART1, SERIAL_CHECK);
+	
+	// Start receiving bytes in the ring buffer.
+	serial_receive_ring(UART1, receive_buffer, sizeof(receive_buffer));	
+}
+
+void processByte(char byte)
+{
+    switch (byte) {
+		case 'H':
+			red_led(1);
+		    break;
+	    case 'U':
+		if(isLocked)
+		{
+			unlockDoor();
+		}
+			break;
+		case 'L':
+		if(!isLocked)
+		{
+			lockDoor();
+		}
+			break;
+		default:
+		   break;
 	}
 }
